@@ -48,12 +48,13 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    createdAt   DateTime @default(now())
+    createdAt     DateTime @default(now())
+    description   String @default("No description yet")
     posts         Post[]
-    comments    Comment[]
-    likes       Like[]
-    friends        User[]    @relation("UserFriends")
-    friendOf       User[]    @relation("UserFriends")
+    comments      Comment[]
+    likes         Like[]
+    friends       User[]    @relation("UserFriends")
+    friendOf      User[]    @relation("UserFriends")
 }
 model Post {
   id        String  @id @default(cuid())
@@ -66,7 +67,6 @@ model Post {
   comments  Comment[]
 }
 
-// Define your data model for likes
 model Like {
   id        String  @id @default(cuid())
   post      Post    @relation(fields: [postId], references: [id])
@@ -75,7 +75,6 @@ model Like {
   userId    String
 }
 
-// Define your data model for comments
 model Comment {
   id        String  @id @default(cuid())
   content   String

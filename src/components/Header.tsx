@@ -9,7 +9,6 @@ import {
     Typography,
     Button,
 } from "@mui/material";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useSession } from "next-auth/react";
 const Header = () => {

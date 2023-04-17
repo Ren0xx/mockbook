@@ -1,14 +1,17 @@
 import styles from "./index.module.css";
 import { type NextPage } from "next";
+import { Container } from "@mui/material";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import Layout from "@/components/Layout";
-import Welcome from "@/components/Welcome";
+import SignIn from "@/components/SignIn";
 import Header from "@/components/Header";
 import MainPage from "@/components/Mainpage";
-
-const Home: NextPage = () => {
+const Home = () => {
     const { data: sessionData } = useSession();
+    if (!sessionData) {
+        return <SignIn />;
+    }
     return (
         <>
             <Head>
@@ -17,14 +20,8 @@ const Home: NextPage = () => {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Layout>
-                {!sessionData?.user ? (
-                    <Welcome />
-                ) : (
-                    <main>
-                        <Header />
-                        <MainPage />
-                    </main>
-                )}
+                <Header />
+                <MainPage />
             </Layout>
         </>
     );
