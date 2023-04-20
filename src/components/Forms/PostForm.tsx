@@ -39,7 +39,7 @@ export default function PostForm(props: PostFormProps) {
         <form className={styles.container} onSubmit={formik.handleSubmit}>
             <TextField
                 id='title'
-                label='Outlined'
+                label='Title'
                 variant='outlined'
                 value={formik.values.title}
                 onChange={formik.handleChange}
@@ -48,7 +48,7 @@ export default function PostForm(props: PostFormProps) {
             />
             <TextField
                 id='content'
-                label='Multiline'
+                label='Content'
                 multiline
                 maxRows={4}
                 variant='filled'
@@ -57,7 +57,9 @@ export default function PostForm(props: PostFormProps) {
                 error={formik.touched.content && Boolean(formik.errors.content)}
                 helperText={formik.touched.content && formik.errors.content}
             />
-            <Button type='submit'>Add post</Button>
+            <Button type='submit' variant='contained'>
+                Add post
+            </Button>
         </form>
     );
 }

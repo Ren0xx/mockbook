@@ -12,12 +12,13 @@ const MainPage: React.FC = () => {
             enabled: sessionData?.user !== undefined,
         }
     );
+    const refetch = () => void refetchPosts();
     return (
         <Grid container spacing={2} className={styles.grid}>
             <Grid item xs={8} md={8}>
-                <PostForm refetchPosts={refetchPosts} />
+                <PostForm refetchPosts={refetch} />
                 <hr />
-                <Posts posts={posts} />
+                <Posts posts={posts} refetchPosts={refetch} />
             </Grid>
             <Grid item xs={4}>
                 <p>User friends(active) </p>

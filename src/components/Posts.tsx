@@ -1,27 +1,28 @@
-import { useSession } from "next-auth/react";
-import { type Post } from "@prisma/client";
+import { type RouterOutputs } from "@/utils/api";
 import { api } from "@/utils/api";
-import { Button } from "@mui/material";
+import PostCard from "./PostCard";
+type Post = RouterOutputs["post"]["getAll"][0];
 type PostsProps = {
     posts?: Post[];
+    refetchPosts: () => void;
 };
 const Posts = (props: PostsProps) => {
-    //   const deletePost = api.post.deletePost.useMutation({
-    //     onSuccess: () => {
-    //       void refetchTopics();
-    //     },
-    //   });
+    const deletePost = api.post.delete.useMutation({
+        onSuccess: () => {
+            void props.refetchPosts();
+        },
+    });
 
-    //   const deleteOne = (id: number) => {
-    //     deletePost.mutate({
-    //       id: id,
-    //     });
-    //   };
+    const deleteOne = (id: string) => {
+        deletePost.mutate({
+            id: id,
+        });
+    };
     return (
         <div>
-            {props.posts?.map((post: Post) => {
-                return <p>{post.title}</p>;
-            })}
+            {props.posts?.map((post: Post) => (
+                <PostCard post={post} deletePost={deleteOne}/>
+            ))}
         </div>
     );
 };

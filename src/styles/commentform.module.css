@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    gap: 2em;
+    flex-direction: column;
+    max-width: 15em;
+    margin-top: 5em;
+    border: 0.1em solid black;
+    padding: 1.5em;
+}

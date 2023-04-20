@@ -8,15 +8,7 @@ import {
 
 export const userRouter = createTRPCRouter({
     deleteOne: protectedProcedure.mutation(async ({ ctx }) => {
-        //delete all user posts
-        const deletePosts = ctx.prisma.post.deleteMany({
-            where: { authorId: ctx.session.user.id }
-        });
-        //delete all user comments
-        const deleteComments = ctx.prisma.comment.deleteMany({
-            where: { authorId: ctx.session.user.id }
-        });
-        return ctx.prisma.$transaction([deletePosts, deleteComments]);
+        return ctx.prisma.user.delete({ where: { id: ctx.session.user.id } });
     }),
 
     updateDescription: protectedProcedure.input(z.object({ description: z.string() })).mutation(async ({ ctx, input }) => {

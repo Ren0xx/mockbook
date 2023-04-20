@@ -17,28 +17,36 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position='static'>
                 <Toolbar>
-                    <IconButton
+                    {/* <IconButton
                         size='large'
                         edge='start'
                         color='inherit'
                         aria-label='menu'
                         sx={{ mr: 2 }}>
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography
                         variant='h6'
                         component='div'
                         sx={{ flexGrow: 1 }}>
                         Mockbook
                     </Typography>
-                    <Button color='inherit' onClick={() => void signOut()}>
-                        Logout
-                    </Button>
-                    <Avatar
-                        alt='Profile picture'
-                        src={sessionData?.user.image ?? "Profile picture"}
-                    />
-                    <SettingsIcon />
+                    {sessionData?.user && (
+                        <>
+                            <Button
+                                color='inherit'
+                                onClick={() => void signOut()}>
+                                Logout
+                            </Button>
+                            <Avatar
+                                alt='Profile picture'
+                                src={
+                                    sessionData?.user.image ?? "Profile picture"
+                                }
+                            />
+                            <SettingsIcon />
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
         </Box>
