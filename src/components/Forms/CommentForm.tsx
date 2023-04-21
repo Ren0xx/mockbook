@@ -12,12 +12,12 @@ const validationSchema = yup.object({
 });
 type CommentFormProps = {
     postId: string;
-    refetchPosts: () => void;
+    refetchPost: () => void;
 };
 export default function CommentForm(props: CommentFormProps) {
     const createComment = api.comment.create.useMutation({
         onSuccess: () => {
-            void props.refetchPosts();
+            void props.refetchPost();
         },
     });
     const formik = useFormik({

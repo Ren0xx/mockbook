@@ -7,7 +7,7 @@ import Layout from "@/components/Layout";
 import SignIn from "@/components/SignIn";
 import Header from "@/components/Header";
 import MainPage from "@/components/Mainpage";
-const Home = () => {
+const Home: NextPage = () => {
     const { data: sessionData } = useSession();
     if (!sessionData) {
         return <SignIn />;

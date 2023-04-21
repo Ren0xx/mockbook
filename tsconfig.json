@@ -28,6 +28,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-  ],
+, "src/testing/postform.test.jsx"  ],
   "exclude": ["node_modules"]
 }
