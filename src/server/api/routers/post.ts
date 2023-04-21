@@ -8,7 +8,7 @@ export const postRouter = createTRPCRouter({
             orderBy: {
                 createdAt: 'desc'
             },
-            include: { comments: true, author: true },
+            include: { comments: true, author: true, likes: true },
             take: 50 // limit to 50 records
         });
     }),
