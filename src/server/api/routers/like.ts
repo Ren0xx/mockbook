@@ -1,21 +1,20 @@
 import { z } from 'zod';
-
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 export const likeRouter = createTRPCRouter({
     add: protectedProcedure
-        .input(z.object({ id: z.string() }))
-        .mutation(({ ctx, input }) => {
+        .input(z.object({ postId: z.string() }))
+        .mutation(async ({ ctx, input }) => {
             return ctx.prisma.like.create({
                 data: {
-                    postId: input.id,
+                    postId: input.postId,
                     userId: ctx.session.user.id,
                 }
             });
         }),
-    remove: protectedProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
+    remove: protectedProcedure.input(z.object({ likeId: z.string() })).mutation(async ({ ctx, input }) => {
         return ctx.prisma.like.delete({
-            where: { id: input.id }
+            where: { id: input.likeId }
         });
     }),
 });

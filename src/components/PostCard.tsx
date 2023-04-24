@@ -15,6 +15,7 @@ type CommentT = RouterOutputs["comment"]["create"];
 type PostProps = {
     post: Post;
     deletePost: (id: string) => void;
+    refetchPosts: () => void;
 };
 export default function PostCard(props: PostProps) {
     const { data: sessionData } = useSession();
@@ -30,7 +31,7 @@ export default function PostCard(props: PostProps) {
     const likeOfAuthor = likes.find(
         (like) => like.userId === sessionData?.user.id
     );
-    const likeId = likeOfAuthor?.id;
+    const likeId = likeOfAuthor?.id || "";
     return (
         <>
             <Card sx={{ minWidth: 275 }}>
@@ -57,6 +58,7 @@ export default function PostCard(props: PostProps) {
                         postId={id}
                         isLiked={hasLikeWithUserId}
                         likeId={likeId}
+                        refetchPosts={props.refetchPosts}
                     />
                 </CardContent>
                 {author.id === sessionData?.user.id && (
