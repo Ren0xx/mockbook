@@ -1,0 +1,14 @@
+/* .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+}vkk */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+
+}

@@ -1,12 +1,15 @@
 import { type RouterOutputs } from "@/utils/api";
 import { useSession } from "next-auth/react";
 
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import {
+    Avatar,
+    Box,
+    Card,
+    CardActions,
+    CardContent,
+    Button,
+    Typography,
+} from "@mui/material";
 import Comment from "@/components/Comment";
 import Link from "next/link";
 import PostBottomBar from "@/components/PostBottomBar";
@@ -42,8 +45,16 @@ export default function PostCard(props: PostProps) {
                         gutterBottom>
                         <Link href={`/posts/${id}`}>{title}</Link>
                     </Typography>
+                    <Avatar
+                        alt='Profile picture'
+                        src={author.image ?? "Profile picture"}
+                        component={Link}
+                        href={`/profile/${author?.id}`}
+                    />
                     <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-                        Created by {author.name}
+                        <Link href={`/profile/${author.id}`}>
+                            Created by {author.name}
+                        </Link>
                     </Typography>
                     <Typography variant='body2'>{content}</Typography>
                     <hr />

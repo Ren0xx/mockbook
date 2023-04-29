@@ -7,6 +7,9 @@ import {
 } from "@/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
+    getOne: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.user.findUnique({ where: { id: input.id }, include: { friends: true } });
+    }),
     deleteOne: protectedProcedure.mutation(async ({ ctx }) => {
         return ctx.prisma.user.delete({ where: { id: ctx.session.user.id } });
     }),

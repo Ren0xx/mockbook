@@ -37,5 +37,38 @@ export const postRouter = createTRPCRouter({
                 content: input.content
             },
         });
+    }),
+    allOfUser: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.post.findMany({
+            where: { authorId: input.id },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: { comments: true, author: true, likes: true },
+            take: 50
+        });
+    }),
+    // allOfS: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+    //     return ctx.prisma.user.findUnique({
+    //         where: { id: input.id },
+    //         include: { posts: true }
+    //     });
+    // }),
+    allOfUserLiked: protectedProcedure.query(({ ctx }) => {
+        return ctx.prisma.user.findUnique({
+            where: { id: ctx.session.user.id },
+            include: {
+                likes: {
+                    include: {
+                        post: {
+                            include: {
+                                author: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
     })
+
 });

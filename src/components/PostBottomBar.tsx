@@ -27,10 +27,14 @@ const PostBottomBar = (props: PostProps) => {
                 <IconButton onClick={likeOrDislike} disabled={isDisabled}>
                     <ThumbUpIcon color={liked ? "primary" : "disabled"} />
                 </IconButton>
-                <p>{numberOfLikes}</p>
+                <p>
+                    {numberOfLikes} {numberOfLikes === 1 ? "like" : "likes"}
+                </p>
             </div>
-            {isLiked}
-            <p>{numberOfComments}</p>
+            <p>
+                {numberOfComments}{" "}
+                {numberOfComments === 1 ? "comment" : "comments"}
+            </p>
         </div>
     );
 };

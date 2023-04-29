@@ -44,6 +44,8 @@ const Header = () => {
                                 src={
                                     sessionData?.user.image ?? "Profile picture"
                                 }
+                                component={Link}
+                                href={`/profile/${sessionData?.user.id}`}
                             />
                             <SettingsIcon />
                         </>

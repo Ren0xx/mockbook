@@ -30,7 +30,7 @@ const useLike = (
                         setLiked(false);
                     }
                 }
-                refetchPosts();
+                void refetchPosts();
                 setTimeout(() => {
                     setIsDisabled(false);
                 }, 1500);
