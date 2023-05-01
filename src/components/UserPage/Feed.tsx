@@ -3,7 +3,7 @@ import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import Posts from "@/components/Posts";
 import PostForm from "@/components/Forms/PostForm";
-type Post = RouterOutputs["post"]["getAll"][0];
+type Post = RouterOutputs["post"]["getAll"];
 type UserProps = {
     userId: string | undefined;
 };

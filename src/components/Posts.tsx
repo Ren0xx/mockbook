@@ -12,7 +12,6 @@ type PostsProps = {
     refetchPosts: () => void;
 };
 const Posts = (props: PostsProps) => {
-    
     const deletePost = api.post.delete.useMutation({
         onSuccess: () => {
             void props.refetchPosts();

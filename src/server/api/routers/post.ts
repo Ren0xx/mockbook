@@ -1,16 +1,29 @@
 import { z } from 'zod';
-
+import { env } from '@/env.mjs';
+import { Redis } from 'ioredis';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
+import { Post, Comment, Like, User } from '@prisma/client';
+const client = new Redis(env.REDIS_URL);
+
+type PostsInfo = (Post & { comments: Comment[], likes: Like[], author: User; })[];
 export const postRouter = createTRPCRouter({
-    getAll: protectedProcedure.query(({ ctx }) => {
-        return ctx.prisma.post.findMany({
+    getAll: protectedProcedure.query(async ({ ctx }) => {
+
+        const cache = await client.get("posts");
+        if (cache) {
+            return JSON.parse(cache) as PostsInfo;
+        }
+        const data = await ctx.prisma.post.findMany({
             orderBy: {
                 createdAt: 'desc'
             },
             include: { comments: true, author: true, likes: true },
             take: 50 // limit to 50 records
         });
+        await client.set("posts", JSON.stringify(data));
+        await client.expire("posts", 100);
+        return data;
     }),
     getOne: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
         return ctx.prisma.post.findUnique({ where: { id: input.id }, include: { comments: true, author: true } });
@@ -38,8 +51,13 @@ export const postRouter = createTRPCRouter({
             },
         });
     }),
-    allOfUser: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
-        return ctx.prisma.post.findMany({
+    allOfUser: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+        const cache = await client.get("userposts");
+        if (cache) {
+            return JSON.parse(cache) as PostsInfo;
+        }
+
+        const data = await ctx.prisma.post.findMany({
             where: { authorId: input.id },
             orderBy: {
                 createdAt: 'desc'
@@ -47,6 +65,9 @@ export const postRouter = createTRPCRouter({
             include: { comments: true, author: true, likes: true },
             take: 50
         });
+        await client.set("userposts", JSON.stringify(data));
+        await client.expire("userposts", 1000);
+        return data;
     }),
     // allOfS: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
     //     return ctx.prisma.user.findUnique({
