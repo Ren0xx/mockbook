@@ -6,27 +6,25 @@ import PostForm from "@/components/Forms/PostForm";
 type Post = RouterOutputs["post"]["getAll"];
 type UserProps = {
     userId: string | undefined;
+    posts: Post | undefined;
+    isLoading: boolean;
+    isError: boolean;
+    refetch: () => void;
 };
 export default function Feed(props: UserProps) {
     const { data: sessionData } = useSession();
-    const {
-        data: userPosts,
-        isLoading,
-        isError,
-        refetch,
-    } = api.post.allOfUser.useQuery(
-        { id: props.userId || "" },
-        { enabled: sessionData?.user !== undefined }
-    );
-
+    const { posts, isLoading, isError, refetch } = props;
+    const refetchUser = () => {
+        void refetch();
+    };
     return (
         <div>
             <h1>Feed</h1>
             {props.userId === sessionData?.user.id && (
-                <PostForm refetchPosts={refetch} />
+                <PostForm refetchPosts={refetchUser} />
             )}
             <Posts
-                posts={userPosts}
+                posts={posts}
                 isLoading={isLoading}
                 isError={isError}
                 refetchPosts={refetch}

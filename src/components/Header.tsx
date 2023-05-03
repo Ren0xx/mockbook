@@ -47,7 +47,12 @@ const Header = () => {
                                 component={Link}
                                 href={`/profile/${sessionData?.user.id}`}
                             />
-                            <SettingsIcon />
+                            <IconButton
+                                href='/settings'
+                                aria-label='settings'
+                                color='inherit'>
+                                <SettingsIcon />
+                            </IconButton>
                         </>
                     )}
                 </Toolbar>

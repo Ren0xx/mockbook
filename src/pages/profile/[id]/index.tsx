@@ -17,6 +17,7 @@ const Profile: React.FC = () => {
         data: user,
         isLoading,
         isError,
+        refetch,
     } = api.user.getOne.useQuery(
         { id: userId },
         { enabled: sessionData?.user !== undefined }
@@ -31,7 +32,7 @@ const Profile: React.FC = () => {
         <Container maxWidth='lg'>
             <Header />
             <Typography>User name: {user?.name ?? "No name"}</Typography>
-            <UserPage userData={user} />
+            <UserPage userData={user} isLoading={isLoading} isError={isError} refetch={refetch} />
         </Container>
     );
 };

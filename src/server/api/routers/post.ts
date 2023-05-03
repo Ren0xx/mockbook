@@ -22,7 +22,7 @@ export const postRouter = createTRPCRouter({
             take: 50 // limit to 50 records
         });
         await client.set("posts", JSON.stringify(data));
-        await client.expire("posts", 100);
+        await client.expire("posts", 10);
         return data;
     }),
     getOne: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
@@ -66,7 +66,7 @@ export const postRouter = createTRPCRouter({
             take: 50
         });
         await client.set("userposts", JSON.stringify(data));
-        await client.expire("userposts", 1000);
+        await client.expire("userposts", 10);
         return data;
     }),
     // allOfS: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
