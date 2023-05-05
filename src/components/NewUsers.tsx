@@ -43,6 +43,7 @@ export default function NewUsers() {
             {users?.map((user: User) => (
                 //we are only getting users that are not user's friends
                 <FriendCard
+                    key={user.id}
                     user={user}
                     isFriend={false}
                     addFriend={addOne}

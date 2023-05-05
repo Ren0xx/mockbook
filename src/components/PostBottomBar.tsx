@@ -15,16 +15,21 @@ type PostProps = {
 };
 const PostBottomBar = (props: PostProps) => {
     const { numberOfLikes, numberOfComments, postId, isLiked, likeId } = props;
+    const refetch = () => void props.refetchPosts();
     const { liked, likeOrDislike, isDisabled } = useLike(
         postId,
         isLiked,
-        props.refetchPosts,
+        refetch,
         likeId
     );
     return (
         <div className={styles.container}>
             <div>
-                <IconButton onClick={likeOrDislike} disabled={isDisabled}>
+                <IconButton
+                    onClick={() => {
+                        void likeOrDislike;
+                    }}
+                    disabled={isDisabled}>
                     <ThumbUpIcon color={liked ? "primary" : "disabled"} />
                 </IconButton>
                 <p>

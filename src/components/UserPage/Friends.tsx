@@ -28,13 +28,18 @@ export default function Friends(props: UserProps) {
     return (
         <Box>
             <Typography variant='h4'>Friends</Typography>
-            {friends?.map((friend: User) => (
-                <FriendCard
-                    user={friend}
-                    isFriend={true}
-                    removeFriend={removeOne}
-                />
-            ))}
+            {friends && friends.length > 0 ? (
+                friends.map((friend: User) => (
+                    <FriendCard
+                        key={friend.id}
+                        user={friend}
+                        isFriend={true}
+                        removeFriend={removeOne}
+                    />
+                ))
+            ) : (
+                <p>No friends yet</p>
+            )}
         </Box>
     );
 }

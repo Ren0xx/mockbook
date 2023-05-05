@@ -23,12 +23,16 @@ export default function Feed(props: UserProps) {
             {props.userId === sessionData?.user.id && (
                 <PostForm refetchPosts={refetchUser} />
             )}
-            <Posts
-                posts={posts}
-                isLoading={isLoading}
-                isError={isError}
-                refetchPosts={refetch}
-            />
+            {posts && posts.length > 0 ? (
+                <Posts
+                    posts={posts}
+                    isLoading={isLoading}
+                    isError={isError}
+                    refetchPosts={refetch}
+                />
+            ) : (
+                <p>No posts yet</p>
+            )}
         </div>
     );
 }

@@ -22,17 +22,24 @@ const Profile: React.FC = () => {
         { id: userId },
         { enabled: sessionData?.user !== undefined }
     );
-        
+
     if (!sessionData) {
         return <SignIn />;
     }
     if (isError) return <ErrorMessage />;
     if (isLoading) return <Loader />;
+
+    const refetchUser = () => void refetch();
     return (
         <Container maxWidth='lg'>
             <Header />
             <Typography>User name: {user?.name ?? "No name"}</Typography>
-            <UserPage userData={user} isLoading={isLoading} isError={isError} refetch={refetch} />
+            <UserPage
+                userData={user}
+                isLoading={isLoading}
+                isError={isError}
+                refetch={refetchUser}
+            />
         </Container>
     );
 };
