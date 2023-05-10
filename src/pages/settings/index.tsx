@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Typography, TextField } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { api } from "@/utils/api";
 import { Loader } from "@/components/Loading";
 import { useState } from "react";
+import Picture from "@/components/UserPage/ProfilePicture";
 export default function Settings() {
     const { data: sessionData } = useSession();
+
     const [description, setDescription] = useState<string>("");
     const { isLoading, refetch, isRefetching } =
         api.user.getDescription.useQuery(undefined, {
@@ -32,7 +35,10 @@ export default function Settings() {
                 gap: "2em",
                 marginTop: "1.5em",
             }}>
-            <Typography variant='h4'>Settings</Typography>
+            <Typography variant='h3'>Settings</Typography>
+            <Typography variant='h4'>Profile picture</Typography>
+            <Picture />
+            <Typography variant='h4'>About me</Typography>
             {isLoading ? (
                 <Loader />
             ) : (
@@ -46,7 +52,10 @@ export default function Settings() {
                 />
             )}
 
-            <Button onClick={updateDescription} disabled={isRefetching}>
+            <Button
+                variant='contained'
+                onClick={updateDescription}
+                disabled={isRefetching || isLoading}>
                 Update
             </Button>
         </Box>

@@ -1,9 +1,8 @@
-/* .container {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-
-}vkk */
+.container {
+    padding: 2em;
+    margin: 1.5em;
+    border-radius: 1.5em;
+}
 
 .header {
     display: flex;

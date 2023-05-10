@@ -6,6 +6,7 @@ import {
     protectedProcedure,
 } from "@/server/api/trpc";
 
+
 export const userRouter = createTRPCRouter({
     getOne: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
         return ctx.prisma.user.findUnique({
@@ -79,5 +80,17 @@ export const userRouter = createTRPCRouter({
 
         });
     }),
+
+    updateProfilePicture: protectedProcedure
+        .input(z.object({ urlPath: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            return ctx.prisma.user.update({
+                where: { id: ctx.session.user.id },
+                data: {
+                    image: input.urlPath
+                }
+            });
+
+        }),
 });
 

@@ -50,7 +50,7 @@ export default function PostForm(props: PostFormProps) {
                 id='content'
                 label='Content'
                 multiline
-                maxRows={4}
+                rows={4}
                 variant='filled'
                 value={formik.values.content}
                 onChange={formik.handleChange}

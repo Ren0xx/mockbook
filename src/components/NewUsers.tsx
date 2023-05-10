@@ -1,7 +1,4 @@
-import {
-    Box,
-    Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { type RouterOutputs } from "@/utils/api";
 import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
