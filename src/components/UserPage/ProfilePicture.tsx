@@ -3,10 +3,8 @@ import {
     AccordionSummary,
     AccordionDetails,
     Avatar,
-    Box,
     Button,
     Typography,
-    TextField,
 } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
@@ -31,13 +29,15 @@ export default function Picture() {
     const { uploading, uploadFile } = useFileUploader();
     const submit = async () => {
         if (!file) return;
-        const folderName = `profilePictures/${sessionData?.user.id}`;
+        const folderName = `profilePictures/${
+            sessionData?.user.id || "Unknown"
+        }`;
         const fileName = "profPicture";
 
         try {
             const path = await uploadFile(file, folderName, fileName);
             setFile(null);
-            update.mutateAsync({
+            await update.mutateAsync({
                 urlPath: path,
             });
         } catch (error) {
@@ -73,7 +73,7 @@ export default function Picture() {
                         <p>Selected file: {file?.name}</p>
                         <Button
                             variant='contained'
-                            onClick={submit}
+                            onClick={void submit}
                             disabled={!file || uploading}>
                             Submit
                         </Button>
