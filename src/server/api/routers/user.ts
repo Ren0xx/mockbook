@@ -21,6 +21,13 @@ export const userRouter = createTRPCRouter({
             }
         });
     }),
+    getLoggedUser: protectedProcedure.query(({ ctx }) => {
+        return ctx.prisma.user.findUnique({
+            where: { id: ctx.session.user.id },
+            include: { friends: true }
+
+        });
+    }),
     deleteOne: protectedProcedure.mutation(async ({ ctx }) => {
         return ctx.prisma.user.delete({ where: { id: ctx.session.user.id } });
     }),

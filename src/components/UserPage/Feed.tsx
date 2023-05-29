@@ -20,7 +20,6 @@ export default function Feed(props: UserProps) {
     };
     return (
         <Box sx={{ mx: 3 }}>
-            <h1>Feed</h1>
             {props.userId === sessionData?.user.id && (
                 <PostForm refetchPosts={refetchUser} />
             )}

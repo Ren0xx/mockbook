@@ -20,18 +20,9 @@ export default function NewUsers() {
             void refetch();
         },
     });
-    // const removeFriend = api.user.removeFriend.useMutation({
-    //     onSuccess: () => {
-    //         void refetch();
-    //     },
-    // });
-
     const addOne = (id: string) => {
         addFriend.mutate({ id });
     };
-    // const removeOne = (id: string) => {
-    //     removeFriend.mutate({ id });
-    // };
     if (isError) return <ErrorMessage />;
     if (isLoading) return <Loader />;
     return (

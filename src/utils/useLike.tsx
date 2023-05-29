@@ -8,7 +8,7 @@ const useLike = (
     likeId?: string
 ) => {
     const [liked, setLiked] = useState(isLiked);
-    const [isDisabled, setIsDisabled] = useState(false); // Initialize isDisabled to false
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const createLike = api.like.add.useMutation({});
     const deleteLike = api.like.remove.useMutation({});
@@ -16,7 +16,7 @@ const useLike = (
     async function likeOrDislike() {
         try {
             if (!isDisabled) {
-                setIsDisabled(true); // Disable the button
+                setIsDisabled(true);
                 if (!isLiked) {
                     await createLike.mutateAsync({
                         postId,
@@ -40,7 +40,7 @@ const useLike = (
         }
     }
 
-    return { liked, likeOrDislike, isDisabled }; // Return isDisabled from the hook
+    return { liked, likeOrDislike, isDisabled };
 };
 
 export default useLike;

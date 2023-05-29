@@ -48,9 +48,9 @@ export default function PostForm(props: PostFormProps) {
             />
             <TextField
                 id='content'
-                label="What's on your mind"
+                label="What's on your mind?"
                 multiline
-                rows={3}
+                rows={2}
                 variant='filled'
                 value={formik.values.content}
                 onChange={formik.handleChange}

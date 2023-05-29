@@ -1,11 +1,8 @@
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { Box, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import styles from "@/styles/post.module.css";
 import useLike from "@/utils/useLike";
 import Link from "next/link";
-import { useState } from "react";
-import { Like } from "@prisma/client";
-import { api } from "@/utils/api";
 type PostProps = {
     numberOfLikes: number;
     numberOfComments: number;
@@ -28,7 +25,7 @@ const PostBottomBar = (props: PostProps) => {
             <div>
                 <IconButton
                     onClick={() => {
-                        void likeOrDislike;
+                        void likeOrDislike();
                     }}
                     disabled={isDisabled}>
                     <ThumbUpIcon color={liked ? "primary" : "disabled"} />
