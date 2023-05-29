@@ -37,7 +37,7 @@ export default function CommentForm(props: CommentFormProps) {
         <form className={styles.container} onSubmit={formik.handleSubmit}>
             <TextField
                 id='content'
-                label='Content'
+                label='Add a comment...'
                 multiline
                 maxRows={4}
                 variant='filled'
@@ -46,8 +46,12 @@ export default function CommentForm(props: CommentFormProps) {
                 error={formik.touched.content && Boolean(formik.errors.content)}
                 helperText={formik.touched.content && formik.errors.content}
             />
-            <Button type='submit' variant='contained' size='small'>
-                Add comment
+            <Button
+                type='submit'
+                variant='contained'
+                size='small'
+                sx={{ width: 100 }}>
+                Post
             </Button>
         </form>
     );

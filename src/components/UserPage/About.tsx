@@ -14,7 +14,7 @@ export default function About(props: AboutProps) {
     const { description, createdAt } = props;
     return (
         <Paper
-            elevation={1}
+            elevation={6}
             className={styles.container}
             component={Stack}
             direction='column'

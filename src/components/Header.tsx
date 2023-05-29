@@ -12,11 +12,13 @@ import {
 import Link from "next/link";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useSession } from "next-auth/react";
+import { Container } from "@mui/material";
+
 const Header = () => {
     const { data: sessionData } = useSession();
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position='static'>
+        <AppBar position='static'>
+            <Container sx={{ flexGrow: 1 }} maxWidth='lg'>
                 <Toolbar>
                     {/* <IconButton
                         size='large'
@@ -33,12 +35,13 @@ const Header = () => {
                         <Link href='/'>Mockbook</Link>
                     </Typography>
                     {sessionData?.user && (
-                        <>
-                            <Button
-                                color='inherit'
-                                onClick={() => void signOut()}>
-                                Logout
-                            </Button>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                gap: 2,
+                            }}>
                             <Avatar
                                 alt='Profile picture'
                                 src={
@@ -47,17 +50,34 @@ const Header = () => {
                                 component={Link}
                                 href={`/profile/${sessionData?.user.id}`}
                             />
+                            <Typography
+                                component={Link}
+                                sx={{
+                                    "&:hover": {
+                                        textDecoration: "underline #fff",
+                                        textUnderlineOffset: "0.3em",
+                                    },
+                                }}
+                                href={`/profile/${sessionData?.user.id}`}>
+                                {sessionData?.user.name ?? "Anonymous"}
+                            </Typography>
+                            <Button
+                                color='inherit'
+                                onClick={() => void signOut()}>
+                                Logout
+                            </Button>
+
                             <IconButton
                                 href='/settings'
                                 aria-label='settings'
                                 color='inherit'>
                                 <SettingsIcon />
                             </IconButton>
-                        </>
+                        </Box>
                     )}
                 </Toolbar>
-            </AppBar>
-        </Box>
+            </Container>
+        </AppBar>
     );
 };
 export default Header;

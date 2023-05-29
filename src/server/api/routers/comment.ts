@@ -3,9 +3,9 @@ import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 export const commentRouter = createTRPCRouter({
-    // getAllForPost: protectedProcedure.input(z.object({ postId: z.string() })).query(({ ctx, input }) => {
-    //     return ctx.prisma.comment.findMany({ where: { postId: input.postId } });
-    // }),
+    getAll: protectedProcedure.input(z.object({ postId: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.comment.findMany({ where: { postId: input.postId }, include: { author: true } });
+    }),
     create: protectedProcedure
         .input(z.object({ content: z.string(), postId: z.string() }))
         .mutation(({ ctx, input }) => {

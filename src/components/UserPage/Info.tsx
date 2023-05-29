@@ -2,7 +2,7 @@ import About from "./About";
 import Friends from "./Friends";
 import { Stack } from "@mui/material";
 import { type RouterOutputs } from "@/utils/api";
-import {format} from "date-fns"
+import { format } from "date-fns";
 
 type User = RouterOutputs["user"]["getOne"];
 type UserProps = {
@@ -18,11 +18,16 @@ export default function Info(props: UserProps) {
     return (
         <Stack
             direction='column'
-            justifyContent='center'
-            alignItems='center'
-            spacing={3}>
-            <About description={description} createdAt={createdAt} userId={id}/>
-             
+            justifyContent='flex-start'
+            alignItems='flex-start'
+            spacing={3}
+            sx={{ p: "1.6em" }}>
+            <About
+                description={description}
+                createdAt={createdAt}
+                userId={id}
+            />
+
             <Friends
                 friends={friends}
                 isLoading={isLoading}

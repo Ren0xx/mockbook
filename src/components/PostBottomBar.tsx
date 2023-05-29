@@ -2,6 +2,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Box, IconButton } from "@mui/material";
 import styles from "@/styles/post.module.css";
 import useLike from "@/utils/useLike";
+import Link from "next/link";
 import { useState } from "react";
 import { Like } from "@prisma/client";
 import { api } from "@/utils/api";
@@ -36,10 +37,10 @@ const PostBottomBar = (props: PostProps) => {
                     {numberOfLikes} {numberOfLikes === 1 ? "like" : "likes"}
                 </p>
             </div>
-            <p>
+            <Link href={`/posts/${postId}`}>
                 {numberOfComments}{" "}
                 {numberOfComments === 1 ? "comment" : "comments"}
-            </p>
+            </Link>
         </div>
     );
 };

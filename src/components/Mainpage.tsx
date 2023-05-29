@@ -18,9 +18,8 @@ const MainPage: React.FC = () => {
     const refetch = () => void refetchPosts();
     return (
         <Grid container spacing={2} className={styles.grid}>
-            <Grid item xs={8} md={8}>
+            <Grid item xs={12} md={8}>
                 <PostForm refetchPosts={refetch} />
-                <hr />
                 <Posts
                     posts={posts}
                     refetchPosts={refetch}
@@ -28,7 +27,7 @@ const MainPage: React.FC = () => {
                     isError={isError}
                 />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={0} md={4}>
                 <NewUsers />
             </Grid>
         </Grid>

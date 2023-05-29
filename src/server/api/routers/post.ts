@@ -3,7 +3,7 @@ import { env } from '@/env.mjs';
 import { Redis } from 'ioredis';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
-import { Post, Comment, Like, User } from '@prisma/client';
+import { type Post, type Comment, type Like, type User } from '@prisma/client';
 const client = new Redis(env.REDIS_URL);
 
 type PostsInfo = (Post & { comments: Comment[], likes: Like[], author: User; })[];
@@ -26,7 +26,7 @@ export const postRouter = createTRPCRouter({
         return data;
     }),
     getOne: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
-        return ctx.prisma.post.findUnique({ where: { id: input.id }, include: { comments: true, author: true } });
+        return ctx.prisma.post.findUnique({ where: { id: input.id }, include: { comments: { include: { author: true } }, author: true, likes: true } });
     }),
     create: protectedProcedure
         .input(z.object({ title: z.string(), content: z.string() }))

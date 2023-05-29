@@ -3,6 +3,7 @@ import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import Posts from "@/components/Posts";
 import PostForm from "@/components/Forms/PostForm";
+import { Box } from "@mui/material";
 type Post = RouterOutputs["post"]["getAll"];
 type UserProps = {
     userId: string | undefined;
@@ -18,7 +19,7 @@ export default function Feed(props: UserProps) {
         void refetch();
     };
     return (
-        <div>
+        <Box sx={{ mx: 3 }}>
             <h1>Feed</h1>
             {props.userId === sessionData?.user.id && (
                 <PostForm refetchPosts={refetchUser} />
@@ -33,6 +34,6 @@ export default function Feed(props: UserProps) {
             ) : (
                 <p>No posts yet</p>
             )}
-        </div>
+        </Box>
     );
 }

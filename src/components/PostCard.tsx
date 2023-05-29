@@ -9,10 +9,14 @@ import {
     CardContent,
     Button,
     Typography,
+    Tooltip,
+    IconButton,
 } from "@mui/material";
+import { format } from "date-fns";
 import Comment from "@/components/Comment";
 import Link from "next/link";
 import PostBottomBar from "@/components/PostBottomBar";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 type Post = RouterOutputs["post"]["getAll"][0];
 type CommentT = RouterOutputs["comment"]["create"];
 type PostProps = {
@@ -36,28 +40,52 @@ export default function PostCard(props: PostProps) {
     );
     const likeId = likeOfAuthor?.id || "";
     return (
-        <>
-            <Card sx={{ minWidth: 275 }}>
-                <CardContent>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "stretch",
+            }}>
+            <Card sx={{ alignSelf: "center", minWidth: 700 }}>
+                <CardContent sx={{}}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: "0.6em",
+                            alignItems: "center",
+                        }}>
+                        <Avatar
+                            alt='Profile picture'
+                            src={author.image ?? "Profile picture"}
+                            component={Link}
+                            href={`/profile/${author?.id}`}
+                        />
+
+                        <Typography sx={{ mb: 1.5 }} color='text.secondary'>
+                            <Link href={`/profile/${author.id}`}>
+                                <strong> {author.name}</strong> posted on{" "}
+                                {/* {format(createdAt, "dd/MM/yyyy ")} */}
+                            </Link>
+                        </Typography>
+                        <CardActions sx={{ ml: "auto" }}>
+                            {author.id === sessionData?.user.id && (
+                                <Tooltip title='Delete'>
+                                    <IconButton onClick={() => deleteOne(id)}>
+                                        <DeleteForeverIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
+                        </CardActions>
+                    </Box>
                     <Typography
                         variant='h4'
                         color='text.secondary'
                         gutterBottom>
                         <Link href={`/posts/${id}`}>{title}</Link>
                     </Typography>
-                    <Avatar
-                        alt='Profile picture'
-                        src={author.image ?? "Profile picture"}
-                        component={Link}
-                        href={`/profile/${author?.id}`}
-                    />
-                    <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-                        <Link href={`/profile/${author.id}`}>
-                            Created by {author.name}
-                        </Link>
+                    <Typography sx={{ p: "0.8em" }} variant='body1'>
+                        {content}
                     </Typography>
-                    <Typography variant='body2'>{content}</Typography>
-                    <hr />
                     {/* <Typography variant='body2'>
                         {comments.map((comment: CommentT) => (
                             <Comment comment={comment} key={comment.id} />
@@ -72,14 +100,7 @@ export default function PostCard(props: PostProps) {
                         refetchPosts={props.refetchPosts}
                     />
                 </CardContent>
-                {author.id === sessionData?.user.id && (
-                    <CardActions>
-                        <Button size='small' onClick={() => deleteOne(id)}>
-                            Delete post
-                        </Button>
-                    </CardActions>
-                )}
             </Card>
-        </>
+        </Box>
     );
 }

@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { api } from "@/utils/api";
 import { Loader } from "@/components/Loading";
 import { useState } from "react";
+import Head from "next/head";
 import Picture from "@/components/UserPage/ProfilePicture";
 export default function Settings() {
     const { data: sessionData } = useSession();
@@ -26,38 +27,45 @@ export default function Settings() {
         setDescription(event.target.value);
     };
     return (
-        <Box
-            sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                gap: "2em",
-                marginTop: "1.5em",
-            }}>
-            <Typography variant='h3'>Settings</Typography>
-            <Typography variant='h4'>Profile picture</Typography>
-            <Picture />
-            <Typography variant='h4'>About me</Typography>
-            {isLoading ? (
-                <Loader />
-            ) : (
-                <TextField
-                    id='outlined-multiline-static'
-                    label='About me'
-                    multiline
-                    value={description}
-                    rows={4}
-                    onChange={handleChange}
-                />
-            )}
+        <>
+            <Head>
+                <title>
+                    {sessionData?.user?.name ?? "Anonymous user"} - Mockbook
+                </title>
+            </Head>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    gap: "2em",
+                    marginTop: "1.5em",
+                }}>
+                <Typography variant='h3'>Settings</Typography>
+                <Typography variant='h4'>Profile picture</Typography>
+                <Picture />
+                <Typography variant='h4'>About me</Typography>
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <TextField
+                        id='outlined-multiline-static'
+                        label='About me'
+                        multiline
+                        value={description}
+                        rows={4}
+                        onChange={handleChange}
+                    />
+                )}
 
-            <Button
-                variant='contained'
-                onClick={updateDescription}
-                disabled={isRefetching || isLoading}>
-                Update
-            </Button>
-        </Box>
+                <Button
+                    variant='contained'
+                    onClick={updateDescription}
+                    disabled={isRefetching || isLoading}>
+                    Update
+                </Button>
+            </Box>
+        </>
     );
 }

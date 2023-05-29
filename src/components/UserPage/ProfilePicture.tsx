@@ -73,7 +73,8 @@ export default function Picture() {
                         <p>Selected file: {file?.name}</p>
                         <Button
                             variant='contained'
-                            onClick={void submit}
+                            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                            onClick={submit}
                             disabled={!file || uploading}>
                             Submit
                         </Button>

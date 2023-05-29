@@ -40,7 +40,7 @@ export default function PostForm(props: PostFormProps) {
             <TextField
                 id='title'
                 label='Title'
-                variant='outlined'
+                variant='filled'
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 error={formik.touched.title && Boolean(formik.errors.title)}
@@ -48,16 +48,19 @@ export default function PostForm(props: PostFormProps) {
             />
             <TextField
                 id='content'
-                label='Content'
+                label="What's on your mind"
                 multiline
-                rows={4}
+                rows={3}
                 variant='filled'
                 value={formik.values.content}
                 onChange={formik.handleChange}
                 error={formik.touched.content && Boolean(formik.errors.content)}
                 helperText={formik.touched.content && formik.errors.content}
             />
-            <Button type='submit' variant='contained'>
+            <Button
+                type='submit'
+                variant='contained'
+                sx={{ ml: "auto", maxWidth: 200 }}>
                 Add post
             </Button>
         </form>

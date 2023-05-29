@@ -2,4 +2,5 @@
     display: flex;
     gap: 2em;
     flex-direction: column;
+    margin-left: 2.5em;
 }
