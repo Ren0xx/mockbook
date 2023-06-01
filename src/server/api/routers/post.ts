@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { env } from '@/env.mjs';
 import { Redis } from 'ioredis';
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 
 import { type Post, type Comment, type Like, type User } from '@prisma/client';
 const client = new Redis(env.REDIS_URL);
@@ -69,12 +69,7 @@ export const postRouter = createTRPCRouter({
         await client.expire("userposts", 10);
         return data;
     }),
-    // allOfS: protectedProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
-    //     return ctx.prisma.user.findUnique({
-    //         where: { id: input.id },
-    //         include: { posts: true }
-    //     });
-    // }),
+    
     allOfUserLiked: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.user.findUnique({
             where: { id: ctx.session.user.id },

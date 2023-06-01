@@ -1,8 +1,6 @@
 import { z } from "zod";
-import { User } from "@prisma/client";
 import {
     createTRPCRouter,
-    publicProcedure,
     protectedProcedure,
 } from "@/server/api/trpc";
 

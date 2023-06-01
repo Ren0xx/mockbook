@@ -2,7 +2,6 @@ import About from "./About";
 import Friends from "./Friends";
 import { Stack } from "@mui/material";
 import { type RouterOutputs } from "@/utils/api";
-import { format } from "date-fns";
 
 type User = RouterOutputs["user"]["getOne"];
 type UserProps = {

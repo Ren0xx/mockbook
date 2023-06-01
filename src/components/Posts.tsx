@@ -1,9 +1,8 @@
 import { type RouterOutputs } from "@/utils/api";
-import { Like } from "@prisma/client";
 import { api } from "@/utils/api";
 import PostCard from "./PostCard";
 import { Loader, ErrorMessage } from "@/components/Loading";
-import { useState } from "react";
+import styles from "@/styles/post.module.css";
 type Post = RouterOutputs["post"]["getAll"][0];
 type PostsProps = {
     posts?: Post[];
@@ -26,7 +25,7 @@ const Posts = (props: PostsProps) => {
     if (props.isLoading) return <Loader />;
     if (props.isError) return <ErrorMessage />;
     return (
-        <div>
+        <div className={styles.posts_container}>
             {props.posts?.map((post: Post) => (
                 <PostCard
                     post={post}

@@ -1,5 +1,4 @@
 import { type RouterOutputs } from "@/utils/api";
-import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import Posts from "@/components/Posts";
 import PostForm from "@/components/Forms/PostForm";

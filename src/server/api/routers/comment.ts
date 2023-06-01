@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure} from '../trpc';
 
 export const commentRouter = createTRPCRouter({
     getAll: protectedProcedure.input(z.object({ postId: z.string() })).query(({ ctx, input }) => {

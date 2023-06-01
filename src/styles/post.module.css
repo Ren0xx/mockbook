@@ -5,3 +5,10 @@
     align-items: center;
     flex-direction: row;
 }
+
+.posts_container {
+    display: flex;
+    gap: 1em;
+    flex-flow: column wrap;
+
+}

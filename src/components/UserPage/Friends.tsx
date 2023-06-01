@@ -1,8 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { type RouterOutputs } from "@/utils/api";
 import { api } from "@/utils/api";
 import FriendCard from "./FriendCard";
-import { useSession } from "next-auth/react";
 import { Loader, ErrorMessage } from "@/components/Loading";
 type User = RouterOutputs["user"]["deleteOne"];
 type UserProps = {
@@ -12,7 +11,6 @@ type UserProps = {
     refetch: () => void;
 };
 export default function Friends(props: UserProps) {
-    const { data: sessionData } = useSession();
     const { friends, isLoading, isError, refetch } = props;
     const removeFriend = api.user.removeFriend.useMutation({
         onSuccess: () => {
@@ -26,20 +24,22 @@ export default function Friends(props: UserProps) {
     if (isError) return <ErrorMessage />;
     if (isLoading) return <Loader />;
     return (
-        <Box>
+        <div>
             <Typography variant='h4'>Friends</Typography>
-            {friends && friends.length > 0 ? (
-                friends.map((friend: User) => (
-                    <FriendCard
-                        key={friend.id}
-                        user={friend}
-                        isFriend={true}
-                        removeFriend={removeOne}
-                    />
-                ))
-            ) : (
-                <p>No friends yet</p>
-            )}
-        </Box>
+            <Paper elevation={4} sx={{ borderRadius: "1.5em", mt: "0.5em" }}>
+                {friends && friends.length > 0 ? (
+                    friends.map((friend: User) => (
+                        <FriendCard
+                            key={friend.id}
+                            user={friend}
+                            isFriend={true}
+                            removeFriend={removeOne}
+                        />
+                    ))
+                ) : (
+                    <p>No friends yet</p>
+                )}
+            </Paper>
+        </div>
     );
 }

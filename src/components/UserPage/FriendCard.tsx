@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { type User } from "@prisma/client";
 import Link from "next/link";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import PersonRemoveAlt1Icon from "@mui/icons-material/PersonRemoveAlt1";
@@ -6,10 +6,8 @@ import {
     Avatar,
     Card,
     CardContent,
-    Typography,
     IconButton,
 } from "@mui/material";
-import { useState } from "react";
 type FriendProps = {
     user: User;
     isFriend?: boolean;

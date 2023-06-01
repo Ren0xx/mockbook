@@ -19,7 +19,7 @@ type CommentProps = {
 };
 const Comment = (props: CommentProps) => {
     const { data: sessionData } = useSession();
-    const { id, content, authorId, postId, createdAt, author } = props.comment;
+    const { id, content, authorId,  createdAt, author } = props.comment;
 
     const deleteComment = api.comment.delete.useMutation({
         onSuccess: () => {

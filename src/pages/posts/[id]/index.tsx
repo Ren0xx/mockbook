@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { api } from "@/utils/api";
@@ -8,7 +8,7 @@ import CommentForm from "@/components/Forms/CommentForm";
 import Comment from "@/components/Comment";
 import SignIn from "@/components/SignIn";
 import PostCard from "@/components/PostCard";
-import { Loader, ErrorMessage, PageLoader } from "@/components/Loading";
+import { ErrorMessage, PageLoader } from "@/components/Loading";
 import { type RouterOutputs } from "@/utils/api";
 type CommentT = RouterOutputs["comment"]["getAll"][0];
 
@@ -46,14 +46,12 @@ export default function Post() {
     return (
         <Box sx={{ p: "5em" }}>
             <Head>
-                <title>{post?.title || "Post title"} - Mockbook</title>
+                <title>{post?.title || "Title"} - Mockbook</title>
             </Head>
             <Box
-                // justifyContent='center'
-                // alignItems='center'
-                // spacing={2}
                 sx={{ my: "2em" }}>
                 <PostCard
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     post={post!}
                     refetchPosts={refetchPost}
                     deletePost={deleteOne}

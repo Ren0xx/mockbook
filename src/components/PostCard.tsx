@@ -1,24 +1,20 @@
 import { type RouterOutputs } from "@/utils/api";
 import { useSession } from "next-auth/react";
-
 import {
     Avatar,
     Box,
     Card,
     CardActions,
     CardContent,
-    Button,
     Typography,
     Tooltip,
     IconButton,
 } from "@mui/material";
 import { format } from "date-fns";
-import Comment from "@/components/Comment";
 import Link from "next/link";
 import PostBottomBar from "@/components/PostBottomBar";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 type Post = RouterOutputs["post"]["getAll"][0];
-type CommentT = RouterOutputs["comment"]["create"];
 type PostProps = {
     post: Post;
     deletePost: (id: string) => void;
@@ -44,10 +40,18 @@ export default function PostCard(props: PostProps) {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "stretch",
+                mr: "0.7em",
             }}>
-            <Card sx={{ alignSelf: "center", minWidth: 700 }}>
-                <CardContent sx={{}}>
+            <Card
+                sx={{
+                    alignSelf: "center",
+                    display: "flex",
+                    width: "100%",
+                }}>
+                <CardContent
+                    sx={{
+                        alignSelf: "center",
+                    }}>
                     <Box
                         sx={{
                             display: "flex",
@@ -64,7 +68,7 @@ export default function PostCard(props: PostProps) {
                         <Typography sx={{ mb: 1.5 }} color='text.secondary'>
                             <Link href={`/profile/${author.id}`}>
                                 <strong> {author.name}</strong> posted on{" "}
-                                {/* {format(createdAt, "dd/MM/yyyy ")} */}
+                                {format(createdAt, "dd/MM/yyyy ")}
                             </Link>
                         </Typography>
                         <CardActions sx={{ ml: "auto" }}>
@@ -83,14 +87,9 @@ export default function PostCard(props: PostProps) {
                         gutterBottom>
                         <Link href={`/posts/${id}`}>{title}</Link>
                     </Typography>
-                    <Typography sx={{ p: "0.8em" }} variant='body1'>
+                    <Typography sx={{ py: "0.8em" }} variant='body1'>
                         {content}
                     </Typography>
-                    {/* <Typography variant='body2'>
-                        {comments.map((comment: CommentT) => (
-                            <Comment comment={comment} key={comment.id} />
-                        ))}
-                    </Typography> */}
                     <PostBottomBar
                         numberOfLikes={likes.length}
                         numberOfComments={comments.length}
