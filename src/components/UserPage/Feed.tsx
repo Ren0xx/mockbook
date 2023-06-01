@@ -2,7 +2,7 @@ import { type RouterOutputs } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import Posts from "@/components/Posts";
 import PostForm from "@/components/Forms/PostForm";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 type Post = RouterOutputs["post"]["getAll"];
 type UserProps = {
     userId: string | undefined;
@@ -30,7 +30,7 @@ export default function Feed(props: UserProps) {
                     refetchPosts={refetch}
                 />
             ) : (
-                <p>No posts yet</p>
+                <Typography variant='h5'>No posts yet</Typography>
             )}
         </Box>
     );

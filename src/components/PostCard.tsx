@@ -51,6 +51,7 @@ export default function PostCard(props: PostProps) {
                 <CardContent
                     sx={{
                         alignSelf: "center",
+                        width: "100%",
                     }}>
                     <Box
                         sx={{
@@ -68,7 +69,10 @@ export default function PostCard(props: PostProps) {
                         <Typography sx={{ mb: 1.5 }} color='text.secondary'>
                             <Link href={`/profile/${author.id}`}>
                                 <strong> {author.name}</strong> posted on{" "}
-                                {format(createdAt, "dd/MM/yyyy ")}
+                                {format(
+                                    new Date(createdAt),
+                                    "dd/MM/yyyy 'at' hh:mm"
+                                )}
                             </Link>
                         </Typography>
                         <CardActions sx={{ ml: "auto" }}>

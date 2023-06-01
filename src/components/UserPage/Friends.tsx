@@ -25,21 +25,25 @@ export default function Friends(props: UserProps) {
     if (isLoading) return <Loader />;
     return (
         <div>
-            <Typography variant='h4'>Friends</Typography>
-            <Paper elevation={4} sx={{ borderRadius: "1.5em", mt: "0.5em" }}>
-                {friends && friends.length > 0 ? (
-                    friends.map((friend: User) => (
+            <Typography variant='h4' sx={{ mb: "0.8em" }}>
+                Friends
+            </Typography>
+            {friends && friends.length > 0 ? (
+                friends.map((friend: User) => (
+                    <Paper
+                        key={friend.id}
+                        elevation={4}
+                        sx={{ borderRadius: "1.5em", mt: "0.5em" }}>
                         <FriendCard
-                            key={friend.id}
                             user={friend}
                             isFriend={true}
                             removeFriend={removeOne}
                         />
-                    ))
-                ) : (
-                    <p>No friends yet</p>
-                )}
-            </Paper>
+                    </Paper>
+                ))
+            ) : (
+                <Typography variant='h6'>No friends yet</Typography>
+            )}
         </div>
     );
 }
